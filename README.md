@@ -1,5 +1,4 @@
-# Basic-Movement-Concept
-
+#PlayerMovement.cs
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
@@ -18,14 +17,29 @@ public class PlayerMovement : MonoBehaviour {
 
         if(Input.GetKey("d"))
         {
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
         if (Input.GetKey("a"))
         {
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
 
+    }
+}
+
+#PlayerCollision.cs
+using UnityEngine;
+
+public class PlayerCollision : MonoBehaviour {
+    public PlayerMovement movement;
+
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        if (collisionInfo.collider.tag == "Obstacle")
+        {
+            movement.enabled = false;
+        }
     }
 }
